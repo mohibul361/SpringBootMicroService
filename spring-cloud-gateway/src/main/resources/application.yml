@@ -1,0 +1,25 @@
+server:
+  port: 8087
+
+spring:
+  application:
+    name: spring-cloud-gateway
+
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+    routes:
+        - id: customer
+          uri: lb://customer-service
+          predicates:
+            - Path=/customer/**
+        - id: order
+          uri: lb://order-service
+          predicates:
+            - Path=/order/**
+eureka:
+  client:
+    serviceURL:
+      defaultZone: http://localhost:8900/eureka
